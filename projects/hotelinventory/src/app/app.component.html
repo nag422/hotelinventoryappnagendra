@@ -1,0 +1,12 @@
+
+<app-rooms></app-rooms>
+<h1 [ngClass]="'odd'">Im root</h1>
+<div [ngSwitch]="usertype">
+    <div *ngSwitchCase="'user'">
+        im user
+    </div>
+    <div *ngSwitchCase="'admin'">
+        im admin
+    </div>
+    <div *ngSwitchDefault>im sucked!</div>
+</div>

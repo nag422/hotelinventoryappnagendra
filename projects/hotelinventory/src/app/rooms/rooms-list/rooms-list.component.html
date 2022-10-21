@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="row">
+        <div *ngFor="let room of rooms | slice:0:20; let e=even; let o=odd; let i=index"
+            class="col-md-4 col-sm-12 col-xs-12">
+            <div class="card m-3 p-2 shadow">
+                <div><img src={{room.photos}} alt="roomimg" class="img-fluid" /></div>
+                <div class="cardbody">
+                    <div [ngClass]="e? 'even':'odd'">{{i+1}}</div>
+                    <div>{{e?"even":"odd"}}</div>
+                    <div>{{room.roomType}}</div>
+                    <div>{{room.amenities|uppercase}}</div>
+                    <div>{{room.price}}</div>
+                    <div>Rating{{room.rating | number: '1.0-0' }}</div>
+
+                    <div>{{room.checkinTime|date:'dd-MM-YY'}}</div>
+                    <div>{{room.checkoutTime}}</div>
+                    <button class="btn btn-info" (click)="selectRoom(room)">Select this room</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
