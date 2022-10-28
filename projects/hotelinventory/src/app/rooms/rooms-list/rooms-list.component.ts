@@ -24,7 +24,7 @@ export class RoomsListComponent implements OnInit, OnChanges, DoCheck {
   }
   ngOnInit(): void {
   }
-
+ 
 
   selectRoom(room: RoomList) {
     this.selectedRoom.emit(room);

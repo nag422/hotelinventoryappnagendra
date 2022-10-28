@@ -1,6 +1,7 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { Room, RoomList } from './rooms';
+import { RoomsService } from './services/rooms.service';
 
 @Component({
   selector: 'app-rooms',
@@ -21,48 +22,20 @@ export class RoomsComponent implements OnInit, AfterViewInit {
   title = 'rooms List';
   // with static true can avoid conflicts between header ngOninit method with here ngOnint
   @ViewChild(HeaderComponent, { static: true }) headerComp!:HeaderComponent;
+  @ViewChildren(HeaderComponent) headerChildrenComponent!: QueryList<HeaderComponent>;
 
-
-  constructor() { }
+//  make private to avoid user publicly in templates and available in current ts file itself.
+  constructor(private roomsService: RoomsService) { }
 
   ngOnInit(): void {
-    this.roomsList = [
-      {
-        roomNumber: 1,
-        roomType: "Deluxe",
-        amenities: "hotwater",
-        price: 20,
-        photos: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cm9vbXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-        checkinTime: new Date('11-Nov-2021'),
-        checkoutTime: new Date('12-Dec-2022'),
-        rating: 3.44545
-      },
-      {
-        roomNumber: 2,
-        roomType: "Single bedroom",
-        amenities: "hotwater",
-        price: 20,
-        photos: "https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cm9vbXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-        checkinTime: new Date('11-Nov-2021'),
-        checkoutTime: new Date('12-Dec-2022'),
-        rating: 2.44545
-      },
-      {
-        roomNumber: 3,
-        roomType: "Double bedroom",
-        amenities: "hotwater",
-        price: 20,
-        photos: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cm9vbXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-        checkinTime: new Date('11-Nov-2021'),
-        checkoutTime: new Date('12-Dec-2022'),
-        rating: 1.44545
-      }
-    ]
+   this.roomsList = this.roomsService.getRooms();
   }
 
   ngAfterViewInit(): void {
     console.log('after viewinit')
     this.headerComp.title = "Welcome from rooms component";
+    this.headerChildrenComponent.last.title="last last title";
+    console.log(this.headerChildrenComponent.get(0)?.title)
   }
   ngAfterViewChecked(): void {
     console.log('after vieewchecked')
