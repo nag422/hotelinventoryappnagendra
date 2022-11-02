@@ -12,6 +12,7 @@ export class EmployeeComponent implements OnInit {
   empName: string = "Kumar";
   // the self decorator check whether the providers is provided in this file or not
   constructor(@Self() private roomsService: RoomsService) { }
+  // @SkipSelf rarely uses to see instance available and pretty fast
 
   ngOnInit(): void {
   }
