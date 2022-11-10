@@ -3,7 +3,8 @@ import { RoomList } from '../rooms';
 import { environment } from '../../../environments/environment';
 import { APP_SERVICE_CONFIG } from '../../AppConfig/appconfig.service';
 import { AppConfig } from '../../AppConfig/appconfig.interface';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { shareReplay } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -40,6 +41,16 @@ export class RoomsService {
       rating: 1.44545
     }
   ]
+  // httpextraheader = new HttpHeaders({token:"nag35lnfsdf0w45245", authToken:"jsdflsdf898p"}); //comment for work httpinterceptor
+  // rxjs property
+  // headers interception
+  // getRooms$=this.http.get<RoomList[]>('/api/rooms',{headers:this.httpextraheader}).pipe(
+  //   shareReplay(1)
+  // );                                                                                        //comment for work httpinterceptor
+  // global httpheader interception and to work this below have to comment up line so commenting.
+  getRooms$=this.http.get<RoomList[]>('/api/rooms').pipe(
+    shareReplay(1)
+  );   
   // dependency injection
   constructor(@Inject(APP_SERVICE_CONFIG) private config: AppConfig, 
   private http: HttpClient ) {
@@ -48,6 +59,21 @@ export class RoomsService {
     console.log("Rooms service is initialized...")
    }
   getRooms() {
-    return this.http.get<RoomList[]>('/api/rooms');
+    return this.http.get<RoomList[]>('/api/rooms')
+  }
+  addRoom(room: RoomList) {
+    return this.http.post<RoomList[]>('/api/rooms', room);
+  }
+  editRoom(room: RoomList) {
+    return this.http.put<RoomList[]>(`/api/rooms/${room.roomNumber}`, room);
+  }
+  deleteRoom(id: string) {
+    return this.http.delete<RoomList[]>(`/api/rooms/${id}`);
+  }
+  getPhotos() {
+    const request = new HttpRequest('GET', 'https://jsonplaceholder.typicode.com/photos', {
+      reportProgress: true,
+    });
+    return this.http.request(request);
   }
 }

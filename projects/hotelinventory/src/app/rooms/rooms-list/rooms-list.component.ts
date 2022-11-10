@@ -9,7 +9,7 @@ import { RoomList } from '../rooms';
 })
 // OnChanges and DoCheck dont have to implement together because they both have works as same.
 export class RoomsListComponent implements OnInit, OnChanges, DoCheck {
-  @Input() rooms: RoomList[] = [];
+  @Input() rooms: RoomList[] | null = [];
   @Input() title: String = "";
   @Output() selectedRoom = new EventEmitter<RoomList>();
   constructor() { }
