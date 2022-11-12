@@ -15,6 +15,7 @@
                     <div>{{room.checkinTime|date:'dd-MM-YY'}}</div>
                     <div>{{room.checkoutTime}}</div>
                     <button class="btn btn-info" (click)="selectRoom(room)">Select this room</button>
+                    <button class="btn btn-primary" [routerLink]="['/rooms', room.roomNumber]">View this room</button>
                 </div>
             </div>
         </div>
