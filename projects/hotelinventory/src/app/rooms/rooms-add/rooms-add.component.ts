@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { RoomList } from '../rooms';
 import { RoomsService } from '../services/rooms.service';
 
@@ -24,11 +25,25 @@ export class RoomsAddComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  AddRoom() {
+  AddRoom(roomForm: NgForm) {
     this.roomsService.addRoom(this.room).subscribe((data) => {
       if (data){
         this.successMessage = 'Room Added successfully!'
+        // roomForm.reset();
+        //can use with reset form values 
+        // in testing its working with when direct object values provision not working this.room varaible, have to test.
+        roomForm.resetForm({
+          roomType:'',
+          roomNumber: 0,
+          amenities: '',
+          checkinTime: new Date(),
+          checkoutTime: new Date(),
+          photos:'',
+          price:0,
+          rating:0,
+        });
       }
+      
     })
   }
 

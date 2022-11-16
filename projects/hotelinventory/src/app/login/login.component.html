@@ -1,0 +1,18 @@
+<h2 class="text-center my-2">Login</h2>
+<form class="d-flex gap-3 flex-column px-5 my-3">
+    <div class="form-emailControlgroup">
+        <input #emailControl="ngModel" appEmailvalidator appHover ipcolor="indigo" class="form-control email" type="text" name="email" [(ngModel)]="email" placeholder="please enter email" />
+        <div>
+            {{emailControl.errors|json}}
+        </div>
+    </div>
+    <div class="form-group">
+        <input appHover ipcolor="pink" class="form-control password" type="text" name="password" [(ngModel)]="password" placeholder="please enter password" />
+    </div>
+    <div class="form-group">
+        <input appHover="red" class="form-control company" type="text" name="company" [(ngModel)]="company" placeholder="please enter company name" />
+    </div>
+    <div class="form-group">
+        <button type="button" class="btn btn-primary px-5 py-2" (click)="login();">Login</button>
+    </div>
+</form>

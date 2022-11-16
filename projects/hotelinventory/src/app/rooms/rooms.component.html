@@ -1,6 +1,4 @@
-Welcome to <app-header></app-header>
-<app-header></app-header>
-<app-header></app-header>
+<!-- Welcome to <app-header></app-header>
 <button class="btn btn-success" (click)="toggle();">hide that</button>
 <button class="btn btn-danger mx-2" (click)="addRoom();">Add Room</button>
 <button class="btn btn-info mx-2" (click)="editRoom();">Edit Room</button>
@@ -11,7 +9,7 @@ Welcome to <app-header></app-header>
     rooms {{rooms.availableRooms < 10 ? "below 10" : "above 15" }}</div>
         <app-rooms-list [rooms]="roomsList" [title]="title" (selectedRoom)="selectingRoom($event)"></app-rooms-list>
 
-        <strong>{{totalBytes}}</strong> bytes loaded
+        <strong>{{totalBytes}}</strong> bytes loaded -->
 
         <!-- Checking rooms$ -->
         <!-- async pipe is unwrap the stream and unsubscribe immediately -->
@@ -25,7 +23,9 @@ Welcome to <app-header></app-header>
             <app-rooms-list [rooms]="rooms" [title]="title" (selectedRoom)="selectingRoom($event)">
             </app-rooms-list>
         </div> -->
-        <p>Checing subscribed error handling</p>
+        <!-- <p>Checing subscribed error handling</p>
         {{getError$ | async}}
         <p>Total rooms count</p>
-        {{roomsCount$ | async}}
+        {{roomsCount$ | async}} -->
+        <p class="text-center text-primary">exgterna oultet</p>
+        <router-outlet></router-outlet>

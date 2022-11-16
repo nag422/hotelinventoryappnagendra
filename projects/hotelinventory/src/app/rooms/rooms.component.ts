@@ -2,6 +2,7 @@ import { HttpEventType } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { catchError, map, Observable, of, Subject, Subscription } from 'rxjs';
 import { HeaderComponent } from '../header/header.component';
+import { ConfigService } from '../services/config.service';
 import { Room, RoomList } from './rooms';
 import { RoomsService } from './services/rooms.service';
 
@@ -47,7 +48,7 @@ export class RoomsComponent implements OnInit, AfterViewInit {
   );
   roomsCount$ = this.roomsService.getRooms$.pipe(map((rooms) => rooms.length))
 //  make private to avoid user publicly in templates and available in current ts file itself.
-  constructor(private roomsService: RoomsService) { }
+  constructor(private roomsService: RoomsService, private configService: ConfigService) { }
 
   ngOnInit(): void {
     /* this.roomsService.getPhotos().subscribe((event:any) => {
