@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, FormArray, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { exhaustMap, mergeMap, switchMap } from 'rxjs';
 import { ConfigService } from '../services/config.service';
 import { BookingService } from './booking.service';
+import { CustomValidator } from './validators/custom-validator';
 
 @Component({
   selector: 'app-booking',
@@ -12,23 +14,28 @@ import { BookingService } from './booking.service';
 export class BookingComponent implements OnInit {
   bookingForm!: FormGroup;
 
+
   get guests() {
     return this.bookingForm.get('guests') as FormArray;
   }
-  constructor(private configService: ConfigService, private fb: FormBuilder, private bookingService: BookingService) { }
+  constructor(private configService: ConfigService, private fb: FormBuilder, private bookingService: BookingService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    // const roomId = this.route.snapshot.children[0].paramMap.get("roomid");
+    console.group("%cActivated route","color:white; background-color:brown; padding:0.3em");
+    console.log(this.route.snapshot.children[0]?.paramMap.get("roomid"))
+    console.groupEnd()
     this.bookingForm = this.fb.group({
       BookingId: [''],
-      roomId: new FormControl({ value: '2', disabled:false }, { validators: [Validators.required]}),
-      guestEmail: ['', {updateOn:blur,validators: [Validators.required]}], //can do also in template driven forms.
+      roomId: new FormControl({ value: 2, disabled:false }, { validators: [Validators.required]}),
+      guestEmail: ['', {updateOn:'blur', validators: [Validators.required]}], //can do also in template driven forms.
       checkinDate: new Date,
       checkoutDate: [''],
       bookingStatus: [''],
       bookingAmount: [''],
       bookingDate: [''],
-      mobileNumber: ['', {updateOn: blur}],
-      guestName: ['', [Validators.required, Validators.minLength(3)]],
+      mobileNumber: ['', {updateOn: 'blur'}],
+      guestName: ['', [Validators.required, Validators.minLength(3), CustomValidator.ValidateName, CustomValidator.ValidateSpecialChar('*')]],
       address: this.fb.group({
         addressLine1: ['',[Validators.required]],
         addressLine2: [''],
@@ -39,8 +46,9 @@ export class BookingComponent implements OnInit {
       }),
 
       guests: this.fb.array([this.fb.group({ guestName: ['',[Validators.required]], age: new FormControl('') })]),
-      tnc: new FormControl(false, [Validators.required, Validators.requiredTrue])
-    })
+      tnc: new FormControl(false, {validators: [Validators.required, Validators.requiredTrue]}),
+    }, { updateOn: 'blur', Validators: [CustomValidator.validatedate]});
+    
     // below gives result like onChange input or something. this is the bad practice 
     // this.bookingForm.valueChanges.subscribe((data) => {
     //   console.log(data);
@@ -57,9 +65,9 @@ export class BookingComponent implements OnInit {
     //   ).subscribe((data) => console.log(data));
 
     // exhaustMap sequenceally waits for the prev request, and after that request combine remaining all events for next request. 
-    this.bookingForm.valueChanges.pipe(
-      exhaustMap((data) => this.bookingService.bookRoom(data))
-      ).subscribe((data) => console.log(data));
+    // this.bookingForm.valueChanges.pipe(
+    //   exhaustMap((data) => this.bookingService.bookRoom(data))
+    //   ).subscribe((data) => console.log(data));
   }
 
   bookRoom(): void {

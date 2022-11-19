@@ -1,5 +1,6 @@
 import { HttpEventType } from '@angular/common/http';
-import { AfterViewInit, Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, ViewChildren, QueryList, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { catchError, map, Observable, of, Subject, Subscription } from 'rxjs';
 import { HeaderComponent } from '../header/header.component';
 import { ConfigService } from '../services/config.service';
@@ -24,6 +25,7 @@ export class RoomsComponent implements OnInit, AfterViewInit {
   selectedRoom!: RoomList;
   title = 'rooms List';
   totalBytes = 0;
+  @Input() price=2;
   subscription!: Subscription; //create at around 8.30 to 9.00 timeline youtube.
   error$ = new Subject<string>(); // for checing .next
   getError$ = this.error$.asObservable(); // for checing .next
@@ -47,6 +49,7 @@ export class RoomsComponent implements OnInit, AfterViewInit {
     })
   );
   roomsCount$ = this.roomsService.getRooms$.pipe(map((rooms) => rooms.length))
+  priceFilter = new FormControl(0);
 //  make private to avoid user publicly in templates and available in current ts file itself.
   constructor(private roomsService: RoomsService, private configService: ConfigService) { }
 

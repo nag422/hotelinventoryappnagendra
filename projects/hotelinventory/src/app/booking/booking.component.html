@@ -2,7 +2,8 @@
 {{bookingForm.value | json}}
 {{bookingForm.pristine | json}}
 {{bookingForm.dirty | json}}
-length error: {{bookingForm.get('guestName')?.hasError("minlength")}}
+length error: {{bookingForm.get('guestName')?.hasError("minlength")}} <br />
+booking form date error: {{bookingForm.get('checkoutDate')?.errors | json }}
 <div class="example-full-width p-3">
     <form [formGroup]="bookingForm" (ngSubmit)="bookRoom()">
         <mat-form-field *ngIf="bookingForm.get('passport')" class="example-full-width" appearance="fill">
