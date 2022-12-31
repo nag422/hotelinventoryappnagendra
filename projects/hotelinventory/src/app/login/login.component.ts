@@ -8,8 +8,8 @@ import { LoginService } from './login.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  email: string = "";
-  password: string = "";
+  email: string = "admin@gmail.com";
+  password: string = "Admin";
   company: string = "";
 
   constructor(private route: Router, private loginService: LoginService) { }

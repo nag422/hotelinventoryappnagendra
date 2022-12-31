@@ -1,1 +1,11 @@
 <p>Hi {{empName}}, great employee works!</p>
+<app-post-create (postCreated)="onPostAdded($event)"></app-post-create>
+
+<div *ngFor="let employee of employeePosts">
+    <p>{{employee.title}}</p>
+</div>
+
+<div *ngFor="let employee of posts">
+    <p>{{employee.title}}</p>
+</div>
+

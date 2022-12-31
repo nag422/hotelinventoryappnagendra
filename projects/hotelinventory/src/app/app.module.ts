@@ -25,6 +25,7 @@ import { EmailvalidatorDirective } from './emailvalidator.directive';
 import { RoomsModule } from './rooms/rooms.module';
 import { RouteConfigToken } from './services/routeConfig.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PostCreateComponent } from './posts/post-create/post-create.component';
 function initFactory(InitService: InitService) {
   return () => InitService.init();
 }
@@ -37,7 +38,9 @@ function initFactory(InitService: InitService) {
     NotfoundComponent,
     LoginComponent,
     HoverDirective,
-    EmailvalidatorDirective
+    EmailvalidatorDirective,
+
+    PostCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +78,7 @@ function initFactory(InitService: InitService) {
       multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  // entryComponents:[] //compiles standalone when initialized root on the fly
 })
 export class AppModule { }
