@@ -1,4 +1,20 @@
-<mat-toolbar style="background-color: blueviolet;color:#ffff">
+<mat-toolbar style="background-color: blueviolet;color:#ffff;width:100%">
     <h1 class="text-white">Angular 14 To-Do App</h1>
+    <div style="margin-left:auto">
+        <button mat-raised-button color="warn" (click)="openDialog()" class="mx-2">Add task</button>
+        <button mat-raised-button color="success" (click)="openModal(template)">Confrim task</button>
+    </div>
+
 </mat-toolbar>
-  
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Modal</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        This is a modal.
+    </div>
+</ng-template>
