@@ -1,0 +1,13 @@
+<app-navbar [navtitle]="tajhotel" (navtitleChange)="navtitleChangeFunParent($event)"></app-navbar>
+<p>{{pagename}} works!</p>
+<app-footer></app-footer>
+
+<ng-template #user></ng-template>
+<div #propsref></div>
+<app-top-footer>
+    <app-bottom-footer></app-bottom-footer>
+    <h1>This is top footer inside</h1>
+    <app-footer></app-footer>
+</app-top-footer>
+
+<div>From measuring ngcontent</div>

@@ -199,9 +199,7 @@
               "projects/todoapp/src/favicon.ico",
               "projects/todoapp/src/assets"
             ],
-            "styles": [
-              "projects/todoapp/src/styles.scss"
-            ],
+            "styles": ["projects/todoapp/src/styles.scss"],
             "scripts": []
           }
         }
@@ -221,7 +219,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/taj",
+            "outputPath": "dist/taj/browser",
             "index": "projects/taj/src/index.html",
             "main": "projects/taj/src/main.ts",
             "polyfills": "projects/taj/src/polyfills.ts",
@@ -231,9 +229,7 @@
               "projects/taj/src/favicon.ico",
               "projects/taj/src/assets"
             ],
-            "styles": [
-              "projects/taj/src/styles.scss"
-            ],
+            "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css","projects/taj/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -299,11 +295,68 @@
               "projects/taj/src/favicon.ico",
               "projects/taj/src/assets"
             ],
-            "styles": [
-              "projects/taj/src/styles.scss"
-            ],
+            "styles": ["projects/taj/src/styles.scss"],
             "scripts": []
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/taj/server",
+            "main": "projects/taj/server.ts",
+            "tsConfig": "projects/taj/tsconfig.server.json",
+            "inlineStyleLanguage": "scss"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "projects/taj/src/environments/environment.ts",
+                  "with": "projects/taj/src/environments/environment.prod.ts"
+                }
+              ]
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "taj:build:development",
+              "serverTarget": "taj:server:development"
+            },
+            "production": {
+              "browserTarget": "taj:build:production",
+              "serverTarget": "taj:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "taj:build:production",
+              "serverTarget": "taj:server:production"
+            },
+            "development": {
+              "browserTarget": "taj:build:development",
+              "serverTarget": "taj:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
